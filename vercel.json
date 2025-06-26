@@ -1,5 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/:path((?!api/).*)", "destination": "/:path" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "/api/add-tool.js",
+      "use": "@vercel/node"
+    }
   ]
 }
