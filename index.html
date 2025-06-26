@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tools Website</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <header><h1>My Tools Website 🚀</h1></header>
+    <main>
+        <h2>Our Free Tools</h2>
+        <div id="tools-container"><p>Loading...</p></div>
+    </main>
+    <footer><p>© 2024</p></footer>
+    <script>
+        // ⚠️=== APNI NOTEPAD FILE SE KEYS YAHAN DAALEIN ===⚠️
+        const SUPABASE_URL = 'YOUR_SUPABASE_URL'; 
+        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+        // ===========================================
+
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function loadTools() {
+            const toolsContainer = document.getElementById('tools-container');
+            const { data: tools, error } = await supabase.from('tools').select('*').order('created_at', { ascending: false });
+
+            if (error) {
+                toolsContainer.innerHTML = '<p class="error">Error loading tools.</p>';
+                return;
+            }
+            if (tools.length === 0) {
+                toolsContainer.innerHTML = '<p>No tools added yet.</p>';
+                return;
+            }
+            
+            let htmlContent = '';
+            tools.forEach(tool => {
+                htmlContent += `<div class="tool-card"><h3><a href="${tool.url}">${tool.name}</a></h3><p>${tool.description}</p></div>`;
+            });
+            toolsContainer.innerHTML = htmlContent;
+        }
+        loadTools();
+    </script>
+</body>
+</html>
