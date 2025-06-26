@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebToolBox - Your Online Web Tools</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
     <!-- Google Fonts: Poppins -->
@@ -116,6 +117,94 @@
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+    // ===================================================================
+    //  STEP 1: APNI SUPABASE KEYS YAHAN DAALEIN
+    //  Inko apni PROJECT_KEYS.txt file se copy karke paste karein.
+    // ===================================================================
+    const SUPABASE_URL = 'https://aqfgoamrmhkdtfjhlcjc.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxZmdvYW1ybWhrZHRmamhsY2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5MDA0NzUsImV4cCI6MjA2NjQ3NjQ3NX0.26rrUn0Yxa1wz9sWnDSPPsQWHYh9kHf4Vq1a9Y3Gk98';
+
+
+    // ===================================================================
+    //  STEP 2: SUPABASE CLIENT BANANA
+    //  Ye code Supabase se connection banata hai. Isme koi badlaav na karein.
+    // ===================================================================
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+    // ===================================================================
+    //  STEP 3: TOOLS KO LOAD KARNE WALA FUNCTION
+    //  Ye function database se tools laakar unhe page par dikhata hai.
+    // ===================================================================
+    async function loadTools() {
+        
+        // --- ZAROORI BADLAAV 1 ---
+        // Apne HTML me, us <div> ya <section> ko ek id dein jahan aap
+        // tools ki list dikhana chahte hain, aur wo id yahan likhein.
+        const toolsContainer = document.getElementById('tools-list-goes-here'); 
+        
+        // Agar page par tools ka container nahi hai, to aage kuch na karo.
+        if (!toolsContainer) {
+            console.log("Tools container not found on this page.");
+            return;
+        }
+
+        // Shuruaat me "Loading..." dikhana
+        toolsContainer.innerHTML = "<p>Loading tools...</p>";
+
+        try {
+            // Database se 'tools' table ka saara data fetch karna
+            const { data: tools, error } = await db
+                .from('tools')
+                .select('*')
+                .order('created_at', { ascending: false }); // Naye tools upar
+
+            // Agar data laate waqt error aa gaya
+            if (error) {
+                throw error; // Error ko neeche catch block me bhejo
+            }
+
+            // Agar koi tool nahi mila
+            if (!tools || tools.length === 0) {
+                toolsContainer.innerHTML = '<p>No tools have been added yet.</p>';
+                return;
+            }
+            
+            // Sabhi tools ko dikhane ke liye HTML taiyar karna
+            let htmlContent = '';
+
+            tools.forEach(tool => {
+                // --- ZAROORI BADLAAV 2 ---
+                // Yahan par, apne original design ke "tool card" ka HTML structure
+                // daalein. Niche diya gaya code sirf ek example hai.
+                htmlContent += `
+                    <div class="your-tool-card-class">
+                        <a href="${tool.url}">
+                            <img src="/assets/${tool.slug}/icon.png" alt="${tool.name}" />
+                            <h4>${tool.name}</h4>
+                            <p>${tool.description}</p>
+                        </a>
+                    </div>
+                `;
+            });
+            
+            // Poora HTML content container me daal dena
+            toolsContainer.innerHTML = htmlContent;
+
+        } catch (err) {
+            console.error('Error fetching tools:', err.message);
+            toolsContainer.innerHTML = `<p style="color:red;">Failed to load tools. Please check the console for errors.</p>`;
+        }
+    }
+
+    // ===================================================================
+    //  STEP 4: PAGE LOAD HOTE HI FUNCTION KO RUN KARNA
+    // ===================================================================
+    // Jab poora HTML page load ho jaaye, to loadTools() function ko chalao.
+    document.addEventListener('DOMContentLoaded', loadTools);
+
+</script>
 </body>
 </html>
