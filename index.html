@@ -15,33 +15,45 @@
     </main>
     <footer><p>© 2024</p></footer>
     <script>
-        // ⚠️=== APNI NOTEPAD FILE SE KEYS YAHAN DAALEIN ===⚠️
-        const SUPABASE_URL = 'https://aqfgoamrmhkdtfjhlcjc.supabase.co'; 
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxZmdvYW1ybWhrZHRmamhsY2pjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5MDA0NzUsImV4cCI6MjA2NjQ3NjQ3NX0.26rrUn0Yxa1wz9sWnDSPPsQWHYh9kHf4Vq1a9Y3Gk98';
-        // ===========================================
+    // ⚠️=== APNI NOTEPAD FILE SE KEYS YAHAN DAALEIN ===⚠️
+    const SUPABASE_URL = 'YOUR_SUPABASE_URL'; 
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    // ===========================================
 
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    // Supabase library se 'createClient' function ko nikalna
+    const { createClient } = supabase;
+    
+    // Ek naye naam se client banana taaki confusion na ho
+    const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        async function loadTools() {
-            const toolsContainer = document.getElementById('tools-container');
-            const { data: tools, error } = await supabase.from('tools').select('*').order('created_at', { ascending: false });
+    async function loadTools() {
+        const toolsContainer = document.getElementById('tools-container');
+        
+        // Ab hum 'db' ka istemal karenge
+        const { data: tools, error } = await db
+            .from('tools')
+            .select('*')
+            .order('created_at', { ascending: false });
 
-            if (error) {
-                toolsContainer.innerHTML = '<p class="error">Error loading tools.</p>';
-                return;
-            }
-            if (tools.length === 0) {
-                toolsContainer.innerHTML = '<p>No tools added yet.</p>';
-                return;
-            }
-            
-            let htmlContent = '';
-            tools.forEach(tool => {
-                htmlContent += `<div class="tool-card"><h3><a href="${tool.url}">${tool.name}</a></h3><p>${tool.description}</p></div>`;
-            });
-            toolsContainer.innerHTML = htmlContent;
+        if (error) {
+            console.error('Error fetching tools:', error);
+            toolsContainer.innerHTML = '<p class="error">Error loading tools. Check console for details.</p>';
+            return;
         }
-        loadTools();
-    </script>
+        if (!tools || tools.length === 0) {
+            toolsContainer.innerHTML = '<p>No tools have been added yet.</p>';
+            return;
+        }
+        
+        let htmlContent = '';
+        tools.forEach(tool => {
+            htmlContent += `<div class="tool-card"><h3><a href="${tool.url}">${tool.name}</a></h3><p>${tool.description}</p></div>`;
+        });
+        toolsContainer.innerHTML = htmlContent;
+    }
+
+    // Page load hote hi function ko call karna
+    loadTools();
+</script>
 </body>
 </html>
