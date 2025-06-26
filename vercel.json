@@ -2,8 +2,39 @@
   "version": 2,
   "builds": [
     {
-      "src": "/api/add-tool.js",
+      "src": "api/add-tool.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "admin/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "index.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/admin/panel.html",
+      "dest": "/admin/panel.html"
+    },
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    { "handle": "filesystem" },
+    {
+      "src": "/api/add-tool",
+      "dest": "/api/add-tool"
     }
   ]
 }
