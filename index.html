@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebToolBox - Your Online Web Tools</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- ======== Preloader / Spinner ======== -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- ======== Animated Background ======== -->
+    <div class="background-animation"></div>
+
+    <!-- ======== Header ======== -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">WebToolBox 🚀</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="store.html" class="btn btn-primary">🛒 Buy Tools</a>
+        </div>
+    </header>
+
+    <!-- ======== Main Content ======== -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content perspective-container">
+                <div class="hero-text-content">
+                    <h1 class="animate-on-scroll">All Your Web Development Tools, In One Place.</h1>
+                    <p class="animate-on-scroll">Powerful, fast, and free online tools that make your work easier.</p>
+                    <a href="#tools" class="btn btn-secondary animate-on-scroll">Explore Tools</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Grid Section -->
+        <section id="tools" class="tool-grid-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll">Our Free Tools</h2>
+                <div class="tool-grid">
+                    <!-- Tool Card 1 -->
+                    <div class="tool-card animate-on-scroll" data-tool="html-beautifier">
+                        <div class="tool-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>HTML Beautifier</h3>
+                        <p>Clean up and format your messy HTML code.</p>
+                    </div>
+
+                    <!-- Tool Card 2 -->
+                    <div class="tool-card animate-on-scroll" data-tool="text-analyzer">
+                        <div class="tool-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>Text Analyzer</h3>
+                        <p>Count words, characters, and sentences in your text.</p>
+                    </div>
+
+                    <!-- Add new tool cards here -->
+                    <!-- 
+                    <div class="tool-card animate-on-scroll" data-tool="new-tool-filename">
+                        <div class="tool-icon">
+                            <i class="fas fa-your-icon"></i>
+                        </div>
+                        <h3>New Tool Name</h3>
+                        <p>New tool description.</p>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Workspace (hidden initially) -->
+        <section id="tool-workspace" class="hidden">
+            <div class="container">
+                <button id="back-to-grid" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Go Back</button>
+                <div id="tool-container">
+                    <!-- Tool content will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ======== Footer ======== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2023 WebToolBox. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
