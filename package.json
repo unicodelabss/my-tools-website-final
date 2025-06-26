@@ -1,0 +1,10 @@
+{
+  "name": "my-tools-website-final",
+  "version": "1.0.0",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "@octokit/rest": "^20.0.2",
+    "formidable": "^3.5.1",
+    "jszip": "^3.10.1"
+  }
+}
